@@ -269,6 +269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentBackgroundMusic: {fileID: 1633578178}
   youFoundMeAudio: {fileID: 1439085728}
+  demonSprite1: {fileID: 2070241627}
+  demonSprite2: {fileID: 21300000, guid: 296b14f9072ec2643959a593b7cfdccf, type: 3}
 --- !u!1 &1083447233
 GameObject:
   m_ObjectHideFlags: 0
