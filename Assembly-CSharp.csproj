@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Reference Include="UnityEngine.Purchasing">
       <HintPath>C:/Users/RikkuX491/Desktop/Unity_Projects/GGJ2021_LostAndFound/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    // Determines whether the player can or cannot move
+    public static bool canMove;
+
     // Speed of the Player's movement
     public float speed;
 
@@ -16,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // At the Start of the game, the player can move
+        canMove = true;
+
         // Set rb to the value of the Rigidbody2D component for the Player Game Object
         rb = GetComponent<Rigidbody2D>();
     }
@@ -31,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         changeInPosition.y = Input.GetAxisRaw("Vertical");
 
         // If there is input, move the player
-        if(changeInPosition != Vector3.zero)
+        if(changeInPosition != Vector3.zero && canMove)
         {
             MovePlayer();
         }

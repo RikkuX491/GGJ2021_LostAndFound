@@ -1,0 +1,40 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerInteraction : MonoBehaviour
+{
+    // The background music for the current scene
+    public AudioSource currentBackgroundMusic;
+
+    // Play this sound when an event occurs in the game
+    public AudioSource youFoundMeAudio;    
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // If the Player collides with the Demon...
+        if (collision.gameObject.CompareTag("Demon"))
+        {
+            // Make the current background music stop playing
+            currentBackgroundMusic.Stop();
+
+            // Play the "You Found Me" audio
+            youFoundMeAudio.Play(0);
+
+            // Stop the player from moving
+            PlayerMovement.canMove = false;
+        }
+    }
+}
