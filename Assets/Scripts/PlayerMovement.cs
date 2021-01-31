@@ -16,9 +16,21 @@ public class PlayerMovement : MonoBehaviour
     // The change in position for the Player Game Object which is obtained from the input
     private Vector3 changeInPosition;
 
+    // The Animator for the Player
+    private Animator animator;
+
+    // The SpriteRenderer for the Player
+    private SpriteRenderer sr;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Set animator to the value of the Animator component for the Player Game Object
+        animator = GetComponent<Animator>();
+
+        // Set sr to the value of the SpriteRenderer component for the Player Game Object
+        sr = GetComponent<SpriteRenderer>();
+
         // At the Start of the game, the player can move
         canMove = true;
 
@@ -39,7 +51,25 @@ public class PlayerMovement : MonoBehaviour
         // If there is input, move the player
         if(changeInPosition != Vector3.zero && canMove)
         {
+            if(changeInPosition.x < 0.0f && changeInPosition.y == 0.0f && !sr.flipX)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                if(changeInPosition.x > 0.0f && changeInPosition.y == 0.0f && sr.flipX)
+                {
+                    sr.flipX = false;
+                }
+            }
             MovePlayer();
+            animator.SetFloat("moveX", changeInPosition.x);
+            animator.SetFloat("moveY", changeInPosition.y);
+            animator.SetBool("moving", true);
+        }
+        else
+        {
+            animator.SetBool("moving", false);
         }
     }
 
