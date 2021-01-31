@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -40,10 +41,18 @@ public class PlayerInteraction : MonoBehaviour
             currentBackgroundMusic.Stop();
 
             // Change the sprite for the Demon
-            demonSprite1.sprite = demonSprite2;
+            demonSprite1.sprite = demonSprite2;            
 
             // Play the "You Found Me" audio
             youFoundMeAudio.Play(0);
+
+            // Load Scene 2
+            Invoke("changeScene", 5.0f);            
         }
+    }
+
+    private void changeScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }

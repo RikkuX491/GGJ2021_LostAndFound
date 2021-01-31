@@ -35,21 +35,57 @@ public class Demon : MonoBehaviour
     bool heartbeatAudioIsPlaying = false;
     bool veryFastHeartbeatAudioIsPlaying = false;
 
+    // The Animator for the Demon
+    private Animator animator;
+
+    // The SpriteRenderer for the Demon
+    private SpriteRenderer sr;
+
+    // Change in position along the x and y axis, respectively
+    private float horizontalChangeInPosition = 0.0f;
+    private float verticalChangeInPosition = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Make the Demon invisible at the start of the scene
+        this.gameObject.GetComponent<Renderer>().enabled = false;
+
+        // Set animator to the value of the Animator component for the Demon Game Object
+        animator = GetComponent<Animator>();
+
+        // Set sr to the value of the SpriteRenderer component for the Demon Game Object
+        sr = GetComponent<SpriteRenderer>();
+
         // At the Start of this part of the game, the Demon can move
         canMove = true;
 
         // Find the Player Game Object and get the transform for the Player Game Object
-        target = GameObject.FindWithTag("Player").transform;
+        target = GameObject.FindWithTag("Player").transform;        
     }
 
     // Update is called once per frame
     void Update()
     {
+        horizontalChangeInPosition = target.position.x - transform.position.x;
+        verticalChangeInPosition = target.position.y - transform.position.y;
         if (canMove)
         {
+            if(horizontalChangeInPosition < 0.0f && !sr.flipX)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                if(horizontalChangeInPosition > 0.0f && sr.flipX)
+                {
+                    sr.flipX = false;
+                }
+            }
+
+            animator.SetFloat("moveX", horizontalChangeInPosition);
+            animator.SetFloat("moveY", verticalChangeInPosition);
+
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
             CheckDistance();
         }
@@ -120,6 +156,9 @@ public class Demon : MonoBehaviour
         // If the Demon collides with the Player...
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Make the Demon visible upon colliding with the Player
+            this.gameObject.GetComponent<Renderer>().enabled = true;
+
             // Stop the Demon from moving
             canMove = false;
 
